@@ -21,9 +21,10 @@ public class Mensagem {
 		this.mensagem = mensagem;
 	}
 	
+	//FAZER LOGICA SE NAO TIVER NOME COLOCA FULANO OU CICLANO
 	public String toString() {
 		String motivo = motivo_de_contanto == 1 ? "reclamação" : "sugestão";
-		return "O " + this.nome + " do telefone/email " + this.telefone_ou_email + " enviou a mensagem " + this.mensagem + " pelo motivo " + motivo;
+		return "O " + this.nome + " do telefone/email " + this.telefone_ou_email + " enviou a mensagem: " + this.mensagem + " pelo motivo:" + motivo;
 	}
 	
 	public String getMensagem() {

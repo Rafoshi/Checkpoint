@@ -48,7 +48,8 @@ public class AtendimentoMensagem {
 				atenderMensagem();
 				break;
 			case 3:
-				System.out.println("3");
+				removerFila(3);
+				System.out.println("Enviada resposta para cliente: sua solicitação já foi resolvida pelo setor responsável. Obrigado!!!");
 				break;
 			default:
 				System.out.println("O numero escolhido e invalido! Digite um numero entre 0 a 3.");
@@ -107,11 +108,13 @@ public class AtendimentoMensagem {
 	
 	
 	public int atenderMensagem() {
-		System.out.println("Digite (1 - Atender Reclamacao) (2 - Atender Sugestao");
+		System.out.println("Digite (1 - Atender Reclamacao) (2 - Atender Sugestao)");
 		int opcao = sc.nextInt();
 
 		if(opcao == 1) {
-			apagarEncaminhar();
+			apagarEncaminhar(opcao);
+		}else {
+			apagarEncaminhar(opcao);			
 		}
 		
 		return opcao;
@@ -127,9 +130,31 @@ public class AtendimentoMensagem {
 		}
 	}
 	
-	public void apagarEncaminhar() {
-		System.out.println("Deseja atender essa fila ou encaminhar para resolução? (1- atender ");
+	public void apagarEncaminhar(int fila) {
+		System.out.println("Deseja atender essa fila ou encaminhar para resolução? (1- Atender) (2- Encaminhar)");
+		int opcao = sc.nextInt();
+		
+		if(opcao == 1) {
+			removerFila(fila);
+			System.out.println("Enviada resposta para cliente: sua solicitação já foi resolvida. Obrigado!!!");
+		}else {
+			Mensagem msg = topFila(fila);
+			System.out.println(msg);
+			adicionarFila(3, msg);
+			removerFila(fila);
+		}
 	}
+	
+	public Mensagem topFila(int motivo) {
+		if(motivo == 1) {
+			return filaSugestao.TOP();
+		}else if(motivo == 2){
+			return filaReclamacao.TOP();
+		}else {
+			return filaResolucao.TOP();
+		}
+	}
+	
 
 	public boolean todasFilasVazias(FilaMensagens filaReclamacao, FilaMensagens filaSugestao,
 			FilaMensagens filaResolucao) {
