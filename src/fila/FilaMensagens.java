@@ -25,6 +25,10 @@ public class FilaMensagens {
 	public boolean IsEmpty() {
 		return inicio == null && fim == null;
 	}
+	
+	public Mensagem TOP() {
+		return inicio.dado;
+	}
 
 	public void ENQUEUE(Mensagem mensagem) {
 		NO novo = new NO();
