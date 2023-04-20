@@ -11,6 +11,8 @@ public class AtendimentoMensagem {
 	FilaMensagens filaReclamacao = new FilaMensagens();
 	FilaMensagens filaSugestao = new FilaMensagens();
 	FilaMensagens filaResolucao = new FilaMensagens();
+	
+	int meioDeUso;
 
 	public void start() {
 
@@ -20,6 +22,9 @@ public class AtendimentoMensagem {
 		filaResolucao.INIT();
 
 		int escolha;
+		
+		System.out.println("Qual meio de uso? (1 - Whatsapp) (2- Aplicativo da empresa)");
+		meioDeUso = sc.nextInt();
 
 		do {
 			System.out.println("============================================");
@@ -73,7 +78,11 @@ public class AtendimentoMensagem {
 			nome = sc.nextLine();
 		}
 		
-		System.out.println("Email/Telefone: ");
+		if(meioDeUso == 1) {
+			System.out.println("Telefone: ");
+		}else {
+			System.out.println("Email: ");
+		}
 		String emailTel = sc.next();
 		
 		//TRATAR ISSO
