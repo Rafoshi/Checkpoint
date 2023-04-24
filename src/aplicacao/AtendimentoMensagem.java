@@ -4,7 +4,12 @@ import java.util.Scanner;
 
 import entidades.Mensagem;
 import fila.FilaMensagens;
-
+/*Erik Giuseppe Kato Bandeira 92988
+*João Tancredi Dela Rocca 93527
+*Matheus Stelutti Sepulveda 96272
+*Rafael Ioshi Imamura Pereira 93102
+*Luis Gustavo Profiro da Silva 96258
+*/
 public class AtendimentoMensagem {
 
 	Scanner sc = new Scanner(System.in);
