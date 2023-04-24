@@ -9,8 +9,8 @@ public class FilaMensagens {
 		NO prox;
 	}
 
-	private static NO inicio;
-	private static NO fim;
+	private NO inicio;
+	private NO fim;
 
 	private static class Retorno {
 		public String dadoRetorno;

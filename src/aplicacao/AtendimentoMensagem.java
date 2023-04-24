@@ -54,15 +54,18 @@ public class AtendimentoMensagem {
 				break;
 			case 1:
 				escolheFila();
-
 				break;
 			case 2:
 				atenderMensagem();
 				break;
 			case 3:
-				removerFila(3);
-				System.out.println(
-						"Enviada resposta para cliente: sua solicitação já foi resolvida pelo setor responsável. Obrigado!!!");
+				if(!verificarFila(3)) {					
+					removerFila(3);
+					System.out.println(
+							"Enviada resposta para cliente: sua solicitação já foi resolvida pelo setor responsável. Obrigado!!!");
+				}else {
+					System.out.println("\nNão é possível encaminhar com a fila vazia.\n");
+				}
 				break;
 			default:
 				System.out.println("O numero escolhido e invalido! Digite um numero entre 0 a 3.");
@@ -132,9 +135,9 @@ public class AtendimentoMensagem {
 	public void adicionarFila(int motivo, Mensagem msg) {
 
 		if (motivo == 1) {
-			filaSugestao.ENQUEUE(msg);
-		} else if (motivo == 2) {
 			filaReclamacao.ENQUEUE(msg);
+		} else if (motivo == 2) {
+			filaSugestao.ENQUEUE(msg);
 		} else {
 			filaResolucao.ENQUEUE(msg);
 		}
@@ -145,7 +148,7 @@ public class AtendimentoMensagem {
 		int opcao;
 		
 		do {
-			System.out.print("Deseja atender uma reclmação ou uma sugestão (1 - Atender Reclamacao) (2 - Atender Sugestao)? ");
+			System.out.print("Deseja atender uma reclamação ou uma sugestão (1 - Atender Reclamacao) (2 - Atender Sugestao)? ");
 			 opcao = sc.nextInt();
 			if(opcao != 1 && opcao != 2) {
 				System.out.println("Opção inválida.");
@@ -153,20 +156,16 @@ public class AtendimentoMensagem {
 			System.out.println();
 		} while(opcao != 1 && opcao != 2);
 
-		if (opcao == 1) {
-			apagarEncaminhar(opcao);
-		} else {
-			apagarEncaminhar(opcao);
-		}
+		apagarEncaminhar(opcao);
 
 		return opcao;
 	}
 
 	public void removerFila(int motivo) {
 		if (motivo == 1) {
-			filaSugestao.DEQUEUE();
-		} else if (motivo == 2) {
 			filaReclamacao.DEQUEUE();
+		} else if (motivo == 2) {
+			filaSugestao.DEQUEUE();
 		} else {
 			filaResolucao.DEQUEUE();
 		}
@@ -184,9 +183,7 @@ public class AtendimentoMensagem {
 			System.out.println();
 		} while(opcao != 1 && opcao != 2);
 		
-		
-		if(!todasFilasVazias(filaReclamacao, filaResolucao, filaSugestao)) {
-			
+		if(!verificarFila(fila)) {
 			if(opcao == 1) {
 				removerFila(fila);
 				System.out.println("Enviada resposta para cliente: sua solicitação já foi resolvida. Obrigado!!!");
@@ -196,16 +193,16 @@ public class AtendimentoMensagem {
 				adicionarFila(3, msg);
 				removerFila(fila);
 			}
-		} else {
-			System.out.println("\nNão é possível encaminhar com a fila vazia.\n");
+		}else {
+			System.out.println("\nNão é possível encaminhar ou atender com a fila vazia.\n");
 		}
 	}
 
 	public Mensagem topFila(int motivo) {
 		if (motivo == 1) {
-			return filaSugestao.TOP();
-		} else if (motivo == 2) {
 			return filaReclamacao.TOP();
+		} else if (motivo == 2) {
+			return filaSugestao.TOP();
 		} else {
 			return filaResolucao.TOP();
 		}
@@ -214,5 +211,15 @@ public class AtendimentoMensagem {
 	public boolean todasFilasVazias(FilaMensagens filaReclamacao, FilaMensagens filaSugestao,
 			FilaMensagens filaResolucao) {
 		return (filaReclamacao.IsEmpty() && filaSugestao.IsEmpty() && filaResolucao.IsEmpty());
+	}
+	
+	public boolean verificarFila(int fila){
+		if(fila == 1) {
+			return filaReclamacao.IsEmpty();
+		}else if(fila == 2){
+			return filaSugestao.IsEmpty();
+		}else {
+			return filaResolucao.IsEmpty();
+		}
 	}
 }
